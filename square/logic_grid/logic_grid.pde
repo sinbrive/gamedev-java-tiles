@@ -7,7 +7,7 @@
 
 boolean left=false, right=false, up=false, down=false;
 
-PImage tileAtlas, character;  ////////////
+PImage tileAtlas, character;  
 Map map;
 Camera camera;
 Hero hero;
@@ -29,13 +29,12 @@ void setup() {
   
   camera.follow(hero);
 
-  frameRate(5);
 }
 
 
 //------------------
 void draw() {
-
+  
   game.update();  
   
   game.render();

@@ -1,15 +1,15 @@
 class Hero {
-  int SPEED = 4; // pixels per second
-  int x;
-  int y;
+  int SPEED = 256; // pixels per second
+  float x;
+  float y;
   Map map;
   int w;
   int h;
   PImage image;
-  int screenX;
-  int screenY;
+  float screenX;
+  float screenY;
 
-  Hero(Map map, int x, int y) {
+  Hero(Map map, float x, float y) {
     this.map = map;
     this.x = x;
     this.y = y;
@@ -19,10 +19,10 @@ class Hero {
     this.image = loadImage("character.png");
   }
 
-  void move(int dirx, int diry) {
+  void move(float delta, int dirx, int diry) {
     // move hero
-    this.x += dirx * this.SPEED;
-    this.y += diry * this.SPEED;
+    this.x += dirx * this.SPEED * delta;
+    this.y += diry * this.SPEED * delta;
 
     // check if we walked into a non-walkable tile
     collide(dirx, diry);
@@ -35,13 +35,13 @@ class Hero {
   }
 
   void collide(int dirx, int diry) {
-    int  row, col;
+    float  row, col;
     // -1 in right and bottom is because image ranges from 0..63
     // and not up to 64
-    int left = this.x - this.w / 2;
-    int right = this.x + this.w / 2 - 1;
-    int top = this.y - this.h / 2;
-    int bottom = this.y + this.h / 2 - 1;
+    float left = this.x - this.w / 2;
+    float right = this.x + this.w / 2 - 1;
+    float top = this.y - this.h / 2;
+    float bottom = this.y + this.h / 2 - 1;
 
     // check for collisions on sprite sides
     boolean collision =

@@ -32,10 +32,17 @@ class Map {
 
   int  getTile(int layer, int col, int row) {
     //if ((row * map.cols + col) >= this.rows*this.cols) return 0;
-    return this.layers[layer][row * map.cols + col];
+    int tile;
+    try {
+      tile =this.layers[layer][row * map.cols + col];
+      return tile;
+    } 
+    catch(Exception ignore) {
+      return 0;
+    }
   }
 
-  boolean isSolidTileAtXY (int x, int y) {
+  boolean isSolidTileAtXY (float x, float y) {
     int col = floor(x / this.tsize);
     int row = floor(y / this.tsize);
 
@@ -44,7 +51,7 @@ class Map {
     for (int index=0; index<2; index++) {
       for (int c = 0; c < map.cols; c++) {      
         for (int r = 0; r < map.rows; r++) {  
-          println("map", col, row, x, y);
+          //println(x, y);
           int tile = this.getTile(index, col, row);
           boolean isSolid = tile == 3 || tile == 5;
           if (isSolid) return true;
@@ -54,17 +61,17 @@ class Map {
     return false;
   }
 
-  int getCol(int x) {
+  float getCol(float x) {
     return floor(x / this.tsize);
   }
 
-  int getRow(int y) {
+  float getRow(float y) {
     return floor(y / this.tsize);
   }
-  int getX(int col) {
+  float getX(float col) {
     return col * this.tsize;
   }
-  int getY(int row) {
+  float getY(float row) {
     return row * this.tsize;
   }
 }

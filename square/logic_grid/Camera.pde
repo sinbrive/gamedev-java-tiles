@@ -1,8 +1,8 @@
 class Camera {
 
-  int x;
+  float x;
   int widthc;
-  int y;
+  float y;
   int heightc;
   int maxY, maxX;
   Hero following;
@@ -15,28 +15,6 @@ class Camera {
     this.maxX = map.cols * map.tsize - wmap;  
     this.maxY = map.rows * map.tsize - hmap;  
   }
-
-  //void move(int dirx, int diry) {
-  //  // move camera
-  //  this.x += dirx * this.SPEED;
-  //  this.y += diry * this.SPEED;
-
-  //   //clamp values : first but not optimal solution
-  //   /*
-  //  if (this.x > map.rows*map.tsize-this.widthc)
-  //    x=map.rows*map.tsize-this.widthc;
-  //  if (this.y > map.rows*map.tsize-this.heightc)
-  //    this.y=map.rows*map.tsize-this.heightc;
-
-  //  if (this.x < 0 ) this.x=0;
-  //  if (this.y <0) this.y=0;
-  //  */
-
-  //  // clamp values : second better solution
-  //  this.x = max(0, min(this.x, this.maxX));
-  //  this.y = max(0, min(this.y, this.maxY));
-  //}
-  
   
   void follow(Hero sprite) {
     this.following = sprite;

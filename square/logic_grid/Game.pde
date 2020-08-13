@@ -1,10 +1,23 @@
 class Game {
 
+  double t0;
+
 
   Game() {
+    this.t0 =millis();
   }
 
-  void update () {
+  float delta() {
+    float delta = (int)(millis()-t0);
+    delta = min(delta, 250)/1000;
+    t0=millis();
+
+    return delta;
+  }
+
+
+  void update() {
+
     // handle hero movement with arrow keys
     int  dirx = 0;
     int diry = 0;
@@ -26,7 +39,7 @@ class Game {
       diry = -1;
     }
 
-    hero.move(dirx, diry);
+    hero.move(delta(), dirx, diry);
     camera.update();
   }
 
@@ -47,9 +60,9 @@ class Game {
   //------------------
   void drawLayer(int layer) {
 
-    int startCol = (camera.x / map.tsize);
+    int startCol = (int)(camera.x / map.tsize);
     int endCol = startCol + (camera.widthc / map.tsize);
-    int startRow = (camera.y / map.tsize);
+    int startRow = (int)(camera.y / map.tsize);
     int endRow = startRow + (camera.heightc / map.tsize);
 
     //int offsetX = -camera.x + startCol * map.tsize;
@@ -57,7 +70,7 @@ class Game {
 
     for (int c = startCol; c <= endCol; c++) {      
       for (int r = startRow; r <= endRow; r++) {    
-        println("game");
+
         // [row * map.cols + col could be out of range due to : c <= endCol et r <= endRow
         int tile = (c<0 || c>=map.cols || r<0 || r>=map.rows) ? 0 : map.getTile(layer, c, r);
 
@@ -67,8 +80,8 @@ class Game {
         //int y = (r - startRow) * map.tsize + offsetY;
 
         // no need to use offsetX and offsetY
-        int x = c * map.tsize - camera.x;
-        int y = r * map.tsize - camera.y;
+        float x = c * map.tsize - camera.x;
+        float y = r * map.tsize - camera.y;
 
         if (tile != 0) { 
           image(tileAtlas.get((tile - 1) * map.tsize, 0, map.tsize, map.tsize), 
@@ -82,7 +95,7 @@ class Game {
   void drawGrid() {
     int ww = map.cols * map.tsize;
     int hh = map.rows * map.tsize;
-    int x, y;
+    float x, y;
 
     stroke(0);
     strokeWeight(1);
