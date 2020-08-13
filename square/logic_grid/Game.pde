@@ -39,7 +39,7 @@ class Game {
       diry = -1;
     }
 
-    hero.move(delta(), dirx, diry);
+    hero.move(this.delta(), dirx, diry);
     camera.update();
   }
 
